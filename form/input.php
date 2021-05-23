@@ -43,10 +43,36 @@ if(!empty($_POST['btn_submit'])){
 メールアドレス
 <?php echo h($_POST['email']) ;?>
 <br>
+ホームページ
+<?php echo h($_POST['url']) ;?>
+<br>
+性別
+<?php
+  if($_POST['gender'] === '0'){ echo '男性'; }
+  if($_POST['gender'] === '1'){ echo '女性'; }
+?>
+<br>
+年齢
+<?php
+  if($_POST['age'] === '1'){ echo '~19歳'; }
+  if($_POST['age'] === '2'){ echo '20~29歳'; }
+  if($_POST['age'] === '3'){ echo '30~39歳'; }
+  if($_POST['age'] === '4'){ echo '40~49歳'; }
+  if($_POST['age'] === '5'){ echo '50~59歳'; }
+  if($_POST['age'] === '6'){ echo '60歳~'; }
+?>
+<br>
+メールアドレス
+<?php echo h($_POST['email']) ;?>
+<br>
 <input type="submit" name="back" value="戻る">
 <input type="submit" name="btn_submit" value="送信する">
 <input type="hidden" name="your_name" value="<?php echo h($_POST['your_name']) ;?>">
 <input type="hidden" name="email" value="<?php echo h($_POST['email']) ;?>">
+<input type="hidden" name="url" value="<?php echo h($_POST['url']) ;?>">
+<input type="hidden" name="gender" value="<?php echo h($_POST['gender']) ;?>">
+<input type="hidden" name="age" value="<?php echo h($_POST['age']) ;?>">
+<input type="hidden" name="contact" value="<?php echo h($_POST['contact']) ;?>">
 <input type="hidden" name="csrf" value="<?php echo h($_POST['csrf']) ;?>">
 </form>
 <?php endif; ?>
@@ -81,13 +107,18 @@ $token = $_SESSION['csrfToken'];
 <input type="text" name="url" value="<?php if(!empty($_POST['url'])){echo h($_POST['url']) ;} ?>">
 <br>
 性別
-<input type="radio" name="gender" value="0">男性
-<input type="radio" name="gender" value="1">女性
+<!-- 戻るで戻ってきたときに値を設定するため -->
+<input type="radio" name="gender" value="0"
+<?php if(!empty($_POST['gender']) && $_POST['gender'] === "0")
+{ echo 'checked';} ?>>男性
+<input type="radio" name="gender" value="1"
+<?php if(!empty($_POST['gender']) && $_POST['gender'] === "1")
+{ echo 'checked';} ?>>女性
 <br>
 年齢
-<select>
+<select name="age">
   <option value="">選択してください</option>
-  <option value="1">~19歳</option>
+  <option value="1" selected>~19歳</option>
   <option value="2">20~29歳</option>
   <option value="3">30~39歳</option>
   <option value="4">40~49歳</option>
