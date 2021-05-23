@@ -1,6 +1,9 @@
 <?php
 
 session_start();
+
+require 'validation.php';
+
 header('X-FRAME-OPTIONS:DENY');
 
 if(!empty($_POST)){
@@ -16,8 +19,10 @@ function h($str)
 }
 
 $pageFlag = 0;
+$errors = validation($_POST);
 
-if(!empty($_POST['btn_confirm'])){
+
+if(!empty($_POST['btn_confirm']) && empty($errors)){
   $pageFlag = 1;
 }
 
@@ -96,6 +101,18 @@ if(!isset($_SESSION['csrfToken'])){
 $token = $_SESSION['csrfToken'];
 ?>
 
+<!-- validation　エラー文表示 -->
+<?php if(!empty($errors) && !empty($_POST['btn_confirm'])) : ?>
+<?php echo '<ul>' ;?>
+<?php
+  foreach($errors as $error){
+    echo '<li>' . $error . '</li>' ;
+  }
+?>
+<?php echo '</ul>' ; ?>
+
+<?php endif ;?>
+
 <form method="POST" action="input.php">
 氏名
 <input type="text" name="your_name" value="<?php if(!empty($_POST['your_name'])){echo h($_POST['your_name']) ;} ?>">
@@ -128,7 +145,7 @@ $token = $_SESSION['csrfToken'];
 <br>
 お問い合わせ内容
 <textarea name="contact">
-  <?php if(!empty($_POST['contact'])){echo h($_POST['contact']) ;} ?>
+<?php if(!empty($_POST['contact'])){echo h($_POST['contact']) ;} ?>
 </textarea>
 <br>
 <input type="checkbox" name="caution" value="1">注意事項にチェックしてください。
