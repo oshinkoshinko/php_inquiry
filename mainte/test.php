@@ -21,12 +21,17 @@ $contactFile = '.contact.dat';
 
 //fileで配列へ explodeで,区切り foreachで抽出
 
-$allData = file($contactFile);
-foreach($allData as $lineData){
-    $lines = explode(',', $lineData);
-    echo $lines[0]. '<br>';
-    echo $lines[1]. '<br>';
-    echo $lines[2]. '<br>';
-}
+// $allData = file($contactFile);
+// foreach($allData as $lineData){
+//     $lines = explode(',', $lineData);
+//     echo $lines[0]. '<br>';
+//     echo $lines[1]. '<br>';
+//     echo $lines[2]. '<br>';
+// }
+
+$contents = fopen($contactFile, 'a+');
+$addText = '1行追記' . "\n";
+fwrite($contents, $addText);
+fclose($contents);
 
 ?>
