@@ -95,6 +95,11 @@ if(!empty($_POST['btn_submit'])){
 <?php if($pageFlag === 2 ): ?>
 <?php if($_POST['csrf'] === $_SESSION['csrfToken']) :?>
 
+<?php require '../mainte/insert.php';
+
+insertContact($_POST);
+?>
+
 完了画面
 <?php unset($_SESSION['csrfToken']); ?>
 <?php endif; ?>
