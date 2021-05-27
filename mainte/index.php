@@ -18,8 +18,23 @@ $stmt = $pdo->prepare($sql); //プリペアードステートメント
 $stmt->bindValue('id', 1, PDO::PARAM_INT); //紐付け
 $stmt->execute(); //実行
 
-$result = $stmt->fetchAll();
+$result = $stmt->fetchAll(); //中のデータを取得
 
 echo '<pre>';
 var_dump($result);
 echo '</pre>';
+
+$pdo->beginTransaction();
+
+try{
+
+    //sql処理
+    $stmt = $pdo->prepare($sql); //プリペアードステートメント
+    $stmt->bindValue('id', 1, PDO::PARAM_INT); //紐付け
+    $stmt->execute(); //実行
+
+    $pdo->commit();
+
+}catch(PDOException $e){
+    $pdo->rollBack(); //更新のキャンセル
+}
