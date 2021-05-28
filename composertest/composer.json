@@ -1,10 +1,7 @@
 {
-    "name": "shinya/composertest",
-    "authors": [
-        {
-            "name": "oshinkoshinko",
-            "email": "aiueokakatyuka.9@gmail.com"
+    "autoload": {
+        "psr-4": {
+            "App\\" : "app/"
         }
-    ],
-    "require": {}
+    }
 }

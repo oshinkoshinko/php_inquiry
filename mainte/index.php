@@ -24,6 +24,9 @@ echo '<pre>';
 var_dump($result);
 echo '</pre>';
 
+//トランザクション　まとめて処理 beginTransaction, commit, rollback
+//ex)銀行　残高を確認->Aさんから引き落とし->Bさんに振り込み Aさんから引き落とした後に通信が遮断されたら困る！
+
 $pdo->beginTransaction();
 
 try{

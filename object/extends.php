@@ -5,6 +5,11 @@ class BaseProduct{
     public function echoProduct(){
         echo '親クラスです';
     }
+
+    //オーバーライド(上書き) 子クラスが優先
+    public function getProduct(){
+        echo '親の関数です';
+    }
 }
 
 class Product extends BaseProduct {
@@ -21,6 +26,7 @@ function __construct($product)
     $this->product = $product; //$thisはこのクラス
 }
 
+//親クラスより子クラスが優先
 public function getProduct(){
     echo $this->product;
 }
@@ -42,6 +48,7 @@ var_dump($instance);
 $instance->getProduct();
 echo '<br>';
 
+//親クラスのメソッド
 $instance->echoProduct();
 echo '<br>';
 
